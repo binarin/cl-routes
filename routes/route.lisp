@@ -10,9 +10,10 @@
 
 ;;; check-conditions
 
-(defgeneric route-check-conditions (route bindings))
+(defgeneric route-check-conditions (route bindings)
+  (:method-combination and))
 
-(defmethod route-check-conditions ((route route) bindings)
+(defmethod route-check-conditions and ((route route) bindings)
   (let ((conditions (slot-value route 'conditions)))
     (if conditions
         (iter (for condition in conditions)
